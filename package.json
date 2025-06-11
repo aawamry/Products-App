@@ -1,0 +1,24 @@
+{
+  "name": "productsapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backup": "node scripts/backup.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aawamry/Products-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aawamry/Products-App/issues"
+  },
+  "homepage": "https://github.com/aawamry/Products-App#readme",
+  "dependencies": {
+    "node-cron": "^4.1.0"
+  }
+}
