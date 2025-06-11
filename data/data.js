@@ -9,6 +9,7 @@ import {
 	createStockTransactionsTable
 } from './queries.js';
 
+
 class ProductsDatabase {
 	constructor() {
 		this.db = null;
