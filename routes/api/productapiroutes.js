@@ -4,7 +4,7 @@ import {
 	addProduct,
 	updateProduct,
 	deleteProduct
-} from '../../controllers/productcontroller.js'; // go up 2 levels
+} from '../../controllers/api/productapicontroller.js'; // go up 2 levels
 
 const router = express.Router();
 
