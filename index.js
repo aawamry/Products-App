@@ -5,7 +5,8 @@ import methodOverride from 'method-override'; // Don't forget the import
 import path from 'path';
 import { fileURLToPath } from 'url';
 import 'dotenv/config';
-import productRoutes from './routes/productroutes.js';
+import productViewRoutes from './routes/views/productviewroutes.js'
+import productAPIRoutes from './routes/api/productapiroutes.js';
 import inventoryRoutes from './routes/inventoryroutes.js';
 import transactionRoutes from './routes/transactionroutes.js';
 
@@ -40,8 +41,15 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Welcome to Client App' });
 });
 
+// View Routes
 
-app.use('/api/products', productRoutes);
+app.use('/products', productViewRoutes);
+app.use('/inventory', inventoryViewRoutes);
+app.use('/stocktransactions', stockTransactionViewRoutes);
+
+// API Routes
+
+app.use('/api/products', productAPIRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/transactions', transactionRoutes);
 
