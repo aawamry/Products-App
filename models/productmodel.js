@@ -8,20 +8,21 @@ import {
 } from '../data/queries.js';
 
 class ProductsModel {
-	constructor(id, name, description, price, created_at) {
-		this.id = id;
+	constructor(product_id, name, category, price, sku, created_at) {
+		this.product_id = product_id;
 		this.name = name;
-		this.description = description;
+		this.description = category;
 		this.price = price;
+		this.sku = sku;
 		this.created_at = created_at;
 	}
 
 	// Get all products
 	static async getAllModel() {
 		const dbInstance = await ProductsDatabase.getInstance();
-		const products = await dbInstance.db.all(getAllQuery('products'));
+		const products = await dbInstance.db.all(getAllQuery('Products'));
 
-		return products.map((p) => new ProductsModel(p.id, p.name, p.description, p.price, p.created_at));
+		return products.map((p) => new ProductsModel(p.product_id, p.name, p.category, p.price, p.sku, p.created_at));
 	}
 
 	// Get products by a specific field
@@ -38,24 +39,24 @@ class ProductsModel {
 	}
 
 	// Insert new product
-	static async addProductModel(name, description, price) {
+	static async addProductModel(name, category, price, sku) {
 		const dbInstance = await ProductsDatabase.getInstance();
-		const result = await dbInstance.db.run(insertProductQuery(), [name, description, price]);
+		const result = await dbInstance.db.run(insertProductQuery('Products'), [name, category, price, sku]);
 
 		if (result.changes > 0) {
-			return new ProductsModel(result.lastID, name, description, price, new Date().toISOString());
+			return new ProductsModel(result.lastID, name, category, price, sku, new Date().toISOString());
 		}
 
 		return null;
 	}
 
 	// Update product by ID
-	static async updateProductModel(id, name, description, price) {
+	static async updateProductModel(id, name, category, price, sku) {
 		const dbInstance = await ProductsDatabase.getInstance();
-		const result = await dbInstance.db.run(updateProductQuery(), [name, description, price, id]);
+		const result = await dbInstance.db.run(updateProductQuery(), [name, category, price, sku, id]);
 
 		if (result.changes > 0) {
-			return new ProductsModel(id, name, description, price);
+			return new ProductsModel(id, name, category, price, sku);
 		}
 
 		return null;

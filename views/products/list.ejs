@@ -10,6 +10,7 @@
 			<th>Name</th>
 			<th>Description</th>
 			<th>Price</th>
+			<th>Created At</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -20,10 +21,11 @@
 		</tr>
 		<% } else { %> <% products.forEach(product => { %>
 		<tr>
-			<td><%= product.id %></td>
+			<td><%= product.product_id %></td>
 			<td><%= product.name %></td>
 			<td><%= product.description %></td>
 			<td>$<%= product.price %></td>
+			<td><%= product.created_at %></td>
 			<td>
 				<a href="/api/products/<%= product.id %>" class="btn btn-sm btn-primary">
 					<i class="bi bi-eye"></i>

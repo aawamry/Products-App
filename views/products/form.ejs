@@ -13,10 +13,13 @@
 				<input type="text" name="name" class="form-control" placeholder="Product Name" value="<%= product?.name || '' %>" required />
 			</div>
 			<div class="col-md-4">
-				<input type="text" name="description" class="form-control" placeholder="Description" value="<%= product?.description || '' %>" />
+				<input type="text" name="category" class="form-control" placeholder="Category" value="<%= product?.category || '' %>" />
 			</div>
 			<div class="col-md-4">
 				<input type="number" name="price" step="0.01" class="form-control" placeholder="Price" value="<%= product?.price || '' %>" required />
+			</div>
+			<div class="col-md-4">
+				<input type="text" name="sku" class="form-control" placeholder="SKU" value="<%= product?.sku || '' %>" />
 			</div>
 			<div class="col-md-4">
 				<button type="submit" class="btn btn-primary w-100">Submit</button>

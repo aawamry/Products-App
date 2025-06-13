@@ -1,5 +1,5 @@
 // ---------------- Create Tables ----------------
-export const createProductsTable = () => `CREATE TABLE Products (
+export const createProductsTable = () => `CREATE TABLE IF NOT EXISTS Products(
   product_id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   category TEXT,
@@ -8,7 +8,7 @@ export const createProductsTable = () => `CREATE TABLE Products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )`;
 
-export const createInventoryTable = () => `CREATE TABLE Inventory (
+export const createInventoryTable = () => `CREATE TABLE IF NOT EXISTS Inventory (
   inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
   product_id INTEGER NOT NULL,
   quantity INTEGER DEFAULT 0,
@@ -16,7 +16,7 @@ export const createInventoryTable = () => `CREATE TABLE Inventory (
   FOREIGN KEY (product_id) REFERENCES Products(product_id)
 )`;
 
-export const createStockTransactionsTable = () => `CREATE TABLE StockTransactions (
+export const createStockTransactionsTable = () => `CREATE TABLE IF NOT EXISTS StockTransactions (
   transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
   product_id INTEGER NOT NULL,
   transaction_type TEXT CHECK(transaction_type IN ('IN', 'OUT')) NOT NULL,
