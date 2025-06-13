@@ -43,6 +43,10 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Welcome to Client App' });
 });
 
+app.get('/test-error', (req, res) => {
+  res.render('error', { title: 'Test Error Page', error: 'This is a test error.' });
+});
+
 // View Routes
 
 app.use('/products', productViewRoutes);
