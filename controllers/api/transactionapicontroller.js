@@ -1,10 +1,11 @@
-import StockTransactionModel from '../models/stocktransactionmodel.js';
+import StockTransactionModel from '../../models/stocktransactionmodel.js';
 
 export const getAllTransactions = async (req, res) => {
 	try {
 		const transactions = await StockTransactionModel.getAllModel();
 		res.json(transactions);
 	} catch (error) {
+        console.error('Error fetching transactions:', error);
 		res.status(500).json({ error: 'Failed to fetch transactions.' });
 	}
 };
@@ -15,6 +16,7 @@ export const searchTransactions = async (req, res) => {
 		const results = await StockTransactionModel.getByFieldModel(field, value);
 		res.json(results);
 	} catch (error) {
+        console.error('Error searching transactions:', error);
 		res.status(400).json({ error: error.message });
 	}
 };
@@ -29,6 +31,7 @@ export const addTransaction = async (req, res) => {
 		);
 		res.status(201).json(newTransaction);
 	} catch (error) {
+        console.error('Error adding transaction:', error);
 		res.status(500).json({ error: 'Failed to add transaction.' });
 	}
 };
@@ -39,6 +42,7 @@ export const deleteTransaction = async (req, res) => {
 		const result = await StockTransactionModel.deleteTransactionModel(id);
 		res.json(result);
 	} catch (error) {
+        console.error('Error deleting transaction:', error);
 		res.status(500).json({ error: 'Failed to delete transaction.' });
 	}
 };
