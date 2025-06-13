@@ -1,0 +1,28 @@
+<main>
+	<div class="container-fluid mb-3">
+		<h2><%= title %></h2>
+	</div>
+
+	<form action="<%= formAction %>" method="POST">
+		<div class="row g-3">
+			<div class="col-md-4">
+				<input type="number" name="product_id" class="form-control" placeholder="Product ID" value="<%= transaction?.product_id || '' %>" required />
+			</div>
+			<div class="col-md-4">
+				<input type="number" name="quantity" class="form-control" placeholder="Quantity" value="<%= transaction?.quantity || '' %>" required />
+			</div>
+			<div class="col-md-4">
+				<select name="type" class="form-control" required>
+					<option value="">-- Select Type --</option>
+					<option value="IN" <%= transaction?.type === 'IN' ? 'selected' : '' %>>IN</option>
+					<option value="OUT" <%= transaction?.type === 'OUT' ? 'selected' : '' %>>OUT</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<button type="submit" class="btn btn-primary w-100">Submit</button>
+			</div>
+		</div>
+	</form>
+
+	<a href="/api/transactions" class="btn btn-secondary mt-3">Back</a>
+</main>
