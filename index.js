@@ -7,8 +7,10 @@ import { fileURLToPath } from 'url';
 import 'dotenv/config';
 import productViewRoutes from './routes/views/productviewroutes.js'
 import productAPIRoutes from './routes/api/productapiroutes.js';
-import inventoryRoutes from './routes/inventoryroutes.js';
-import transactionRoutes from './routes/transactionroutes.js';
+import inventoryViewRoutes from './routes/views/inventoryviewroutes.js'
+import inventoryAPIRoutes from './routes/api/inventoryapiroutes.js';
+import transactionsViewRoutes from './routes/views/transactionsviewroutes.js'
+import transactionsAPIRoutes from './routes/api/transactionsapiroutes.js';
 
 
 const PORT = process.env.PORT || 3000;
@@ -45,13 +47,13 @@ app.get('/', (req, res) => {
 
 app.use('/products', productViewRoutes);
 app.use('/inventory', inventoryViewRoutes);
-app.use('/stocktransactions', stockTransactionViewRoutes);
+app.use('/stocktransactions', transactionsViewRoutes);
 
 // API Routes
 
 app.use('/api/products', productAPIRoutes);
-app.use('/api/inventory', inventoryRoutes);
-app.use('/api/transactions', transactionRoutes);
+app.use('/api/inventory', inventoryAPIRoutes);
+app.use('/api/transactions', transactionsAPIRoutes);
 
 // -------------------------Start Server-------------------------//
 app.listen(PORT, () => {
