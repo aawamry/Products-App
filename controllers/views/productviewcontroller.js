@@ -5,7 +5,7 @@ export const getAllProducts = async (req, res) => {
 		const products = await ProductModel.getAllModel();
 		res.render('products/list', {
 			title: 'All Products',
-			products,
+			products
 		});
 	} catch (error) {
 		console.error('❌ Error fetching products:', error);
@@ -19,6 +19,7 @@ export const renderAddProductForm = (req, res) => {
 		formAction: '/api/products',
 		method: 'POST',
 		product: null,
+		backUrl: '/products'
 	});
 };
 
@@ -29,7 +30,7 @@ export const renderEditProductForm = async (req, res) => {
 		if (!product) {
 			return res.status(404).render('error', {
 				title: 'Not Found',
-				error: 'Product not found',
+				error: 'Product not found'
 			});
 		}
 		res.render('products/form', {
@@ -37,9 +38,36 @@ export const renderEditProductForm = async (req, res) => {
 			formAction: `/api/products/${id}?_method=PUT`,
 			method: 'POST', // still POST with method override
 			product,
+			backUrl: '/products'
 		});
 	} catch (error) {
 		console.error('❌ Error loading edit form:', error);
 		res.status(500).render('error', { title: 'Error', error });
+	}
+};
+
+export const viewProductPage = async (req, res) => {
+	try {
+		const product = await ProductModel.getByIdModel(req.params.id);
+		if (!product) return res.status(404).render('error', { title: 'Not Found', error: 'Product not found.' });
+		res.render('products/product', { title: 'Product Details', product });
+	} catch (error) {
+		console.error('Error loading product:', error);
+		res.status(500).render('error', { title: 'Error', error: 'Failed to load product.' });
+	}
+};
+
+export const deleteProductPage = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		await ProductModel.deleteProductModel(id);
+		res.redirect('/products'); // Redirect to the product list view
+	} catch (error) {
+		console.error('❌ Error deleting product:', error);
+		res.status(500).render('error', {
+			title: 'Delete Error',
+			error: 'Failed to delete the product.'
+		});
 	}
 };
