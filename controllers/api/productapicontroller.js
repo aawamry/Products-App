@@ -22,10 +22,10 @@ export const addProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-	const { id } = req.params;
+	const { product_id } = req.params;
 	const { name, description, price } = req.body;
 	try {
-		const updated = await ProductModel.updateProductModel(id, name, description, price);
+		const updated = await ProductModel.updateProductModel(product_id, name, description, price);
 		if (updated) res.json(updated);
 		else res.status(404).json({ error: 'Product not found.' });
 	} catch (error) {
@@ -34,9 +34,9 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-	const { id } = req.params;
+	const { product_id } = req.params;
 	try {
-		const result = await ProductModel.deleteProductModel(id);
+		const result = await ProductModel.deleteProductModel(product_id);
 		res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: 'Failed to delete product.' });

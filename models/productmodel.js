@@ -2,6 +2,7 @@ import ProductsDatabase from '../data/data.js';
 import {
 	getAllQuery,
 	getByFieldQuery,
+	getByIdQuery,
 	insertProductQuery,
 	updateProductQuery,
 	deleteByIdQuery
@@ -27,16 +28,25 @@ class ProductsModel {
 
 	// Get products by a specific field
 	static async getByFieldModel(field, value) {
-		const allowedFields = ['id', 'name', 'price'];
+		const allowedFields = ['product_id', 'name', 'price'];
 		if (!allowedFields.includes(field)) {
 			throw new Error(`❌ Field ${field} is not allowed.`);
 		}
 
 		const dbInstance = await ProductsDatabase.getInstance();
-		const products = await dbInstance.db.all(getByFieldQuery('products', field), [`%${value}%`]);
+		const products = await dbInstance.db.all(getByFieldQuery('products_id', field), [`%${value}%`]);
 
-		return products.map((p) => new ProductsModel(p.id, p.name, p.description, p.price, p.created_at));
+		return products.map((p) => new ProductsModel(p.product_id, p.name, p.category, p.price, p.sku, p.created_at));
 	}
+
+	static async getByIdModel(id) {
+	const dbInstance = await ProductsDatabase.getInstance();
+	const query = getByIdQuery('products', 'product_id');
+	const row = await dbInstance.db.get(query, [id]);
+	if (!row) return null;
+	return new ProductsModel(row.product_id, row.name, row.category, row.price, row.sku, row.created_at);
+}
+
 
 	// Insert new product
 	static async addProductModel(name, category, price, sku) {
@@ -63,10 +73,10 @@ class ProductsModel {
 	}
 
 	// Delete product
-	static async deleteProductModel(id) {
+	static async deleteProductModel(product_id) {
 		const dbInstance = await ProductsDatabase.getInstance();
-		await dbInstance.db.run(deleteByIdQuery(), [id]);
-		return { message: `🗑️ Product ${id} deleted successfully.` };
+		await dbInstance.db.run(deleteByIdQuery('Products'), [product_id]);
+		return { message: `🗑️ Product ${product_id} deleted successfully.` };
 	}
 }
 
