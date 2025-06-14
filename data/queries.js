@@ -31,6 +31,8 @@ export const getAllQuery = (table) => `SELECT * FROM ${table}`;
 
 export const getByFieldQuery = (table, field) => `SELECT * FROM ${table} WHERE ${field} LIKE ?`;
 
+export const getByIdQuery = (table, idField = 'id') => `SELECT * FROM ${table} WHERE ${idField} = ?`;
+
 export const insertProductQuery = (table) => `INSERT INTO ${table} (name, category, price, sku) VALUES (?, ?, ?, ?)`;
 
 export const updateProductQuery = (table) =>
@@ -47,4 +49,4 @@ export const insertStockTransactionQuery = (table) =>
 export const updateStockTransactionQuery = (table) =>
 	`UPDATE ${table} SET transaction_type = ?, quantity = ?, reason = ?, transaction_date = CURRENT_TIMESTAMP WHERE transaction_id = ?`;
 
-export const deleteByIdQuery = (table, idField = 'id') => `DELETE FROM ${table} WHERE ${idField} = ?`;
+export const deleteByIdQuery = (table, idField = 'product_id') => `DELETE FROM ${table} WHERE ${idField} = ?`;
