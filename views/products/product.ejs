@@ -1,0 +1,36 @@
+
+  <h2 class="mb-4"><%= title %></h2>
+  <main>
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><%= product.name %></h5>
+      </div>
+
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-6"><strong>ID:</strong> <%= product.product_id %></div>
+          <div class="col-md-6"><strong>SKU:</strong> <%= product.sku %></div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-6"><strong>Category:</strong> <%= product.category %></div>
+          <div class="col-md-6"><strong>Price:</strong> $<%= product.price %></div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-12"><strong>Created At:</strong> <%= product.created_at %></div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-between">
+        <a href="/products" class="btn btn-secondary">← Back to List</a>
+        <div>
+          <a href="/products/<%= product.product_id %>/edit" class="btn btn-warning me-2">Edit</a>
+          <form action="/products/<%= product.product_id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
